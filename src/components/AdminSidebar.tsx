@@ -5,6 +5,7 @@ import {
   LogOut,
   Church,
   ExternalLink,
+  CalendarDays
 } from 'lucide-react'
 
 import { logoutAdmin } from '../services/authService'
@@ -60,6 +61,16 @@ export default function AdminSidebar() {
         >
           <Newspaper size={19} />
           Notícias
+        </NavLink>
+
+        <NavLink
+          to="/admin/missas"
+          className={({ isActive }) =>
+            isActive ? 'admin-nav-link active' : 'admin-nav-link'
+          }
+        >
+          <CalendarDays size={19} />
+          Missas
         </NavLink>
       </div>
 

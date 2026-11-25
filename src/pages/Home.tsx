@@ -2,6 +2,12 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { listarNoticias, type Noticia } from '../services/noticiasService'
 import {
+  listarHorariosMissas,
+  type HorarioMissa,
+  type DiaSemana,
+} from '../services/missasService'
+
+import {
   ArrowRight,
   ArrowUpRight,
   CalendarDays,
@@ -14,9 +20,23 @@ import {
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
+const diasSemana: DiaSemana[] = [
+  'Domingo',
+  'Segunda-feira',
+  'Terça-feira',
+  'Quarta-feira',
+  'Quinta-feira',
+  'Sexta-feira',
+  'Sábado',
+]
+
 function Home() {
   const [news, setNews] = useState<Noticia[]>([])
   const [loadingNews, setLoadingNews] = useState(true)
+
+  const [horarios, setHorarios] = useState<HorarioMissa[]>([])
+  const [loadingMass, setLoadingMass] = useState(true)
+  const [errorMass, setErrorMass] = useState(false)
 
   useEffect(() => {
     async function carregarNoticias() {
@@ -42,6 +62,25 @@ function Home() {
     }
 
     void carregarNoticias()
+  }, [])
+
+  useEffect(() => {
+    async function carregarHorarios() {
+      try {
+        setErrorMass(false)
+
+        const dados = await listarHorariosMissas()
+
+        setHorarios(dados.filter((horario) => horario.ativo))
+      } catch (error) {
+        console.error('Erro ao carregar horários das missas:', error)
+        setErrorMass(true)
+      } finally {
+        setLoadingMass(false)
+      }
+    }
+
+    void carregarHorarios()
   }, [])
 
   return (
@@ -163,44 +202,138 @@ function Home() {
             </p>
           </div>
 
-          <div className="mass-card">
-            <div className="mass-icon">
-              <Church size={28} />
+          {loadingMass ? (
+            <div className="mass-card">
+              <div className="mass-icon">
+                <Church size={28} />
+              </div>
+
+              <div>
+                <span className="card-eyebrow">CELEBRAÇÕES</span>
+                <h3>Santa Missa</h3>
+                <p>Carregando os horários das celebrações...</p>
+              </div>
+
+              <div className="mass-schedule">
+                <Clock3 size={19} />
+                <span>Carregando...</span>
+              </div>
             </div>
+          ) : errorMass ? (
+            <div className="mass-card">
+              <div className="mass-icon">
+                <Church size={28} />
+              </div>
 
-            <div>
-              <span className="card-eyebrow">
-                CELEBRAÇÕES
-              </span>
+              <div>
+                <span className="card-eyebrow">CELEBRAÇÕES</span>
+                <h3>Santa Missa</h3>
+                <p>
+                  Não foi possível consultar os horários neste momento.
+                </p>
+              </div>
 
-              <h3>Santa Missa</h3>
-
-              <p>
-                Consulte os horários das celebrações paroquiais.
-              </p>
+              <Link
+                to="/missas"
+                className="round-link"
+                aria-label="Consultar horários"
+              >
+                <ArrowUpRight size={21} />
+              </Link>
             </div>
+          ) : horarios.length === 0 ? (
+            <div className="mass-card">
+              <div className="mass-icon">
+                <Church size={28} />
+              </div>
 
-            <div className="mass-schedule">
-              <Clock3 size={19} />
-              <span>Horários em atualização</span>
+              <div>
+                <span className="card-eyebrow">CELEBRAÇÕES</span>
+                <h3>Santa Missa</h3>
+                <p>
+                  Os horários das celebrações serão divulgados em breve.
+                </p>
+              </div>
+
+              <div className="mass-schedule">
+                <Clock3 size={19} />
+                <span>Em atualização</span>
+              </div>
+
+              <Link
+                to="/missas"
+                className="round-link"
+                aria-label="Consultar horários"
+              >
+                <ArrowUpRight size={21} />
+              </Link>
             </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2">
+              {diasSemana.map((dia) => {
+                const horariosDoDia = horarios.filter(
+                  (horario) => horario.dia_semana === dia
+                )
 
-            <Link
-              to="/missas"
-              className="round-link"
-              aria-label="Consultar horários"
-            >
-              <ArrowUpRight size={21} />
-            </Link>
-          </div>
+                if (horariosDoDia.length === 0) return null
+
+                return (
+                  <article
+                    key={dia}
+                    className="overflow-hidden rounded-xl border border-[#e9e6dc] bg-white shadow-sm"
+                  >
+                    <div className="flex items-center gap-3 bg-[#f2f5ef] px-5 py-4">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#173d2b] text-[#d9c58a]">
+                        <CalendarDays size={19} />
+                      </div>
+
+                      <h3 className="font-semibold text-[#173d2b]">
+                        {dia}
+                      </h3>
+                    </div>
+
+                    <div className="divide-y divide-gray-100 px-5">
+                      {horariosDoDia.map((horario) => (
+                        <div
+                          key={horario.id}
+                          className="flex flex-wrap items-center justify-between gap-3 py-4"
+                        >
+                          <div>
+                            <h4 className="font-semibold text-gray-900">
+                              {horario.celebracao}
+                            </h4>
+
+                            <p className="mt-1 flex items-center gap-1.5 text-sm text-gray-500">
+                              <MapPin size={14} />
+                              {horario.local}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-2 rounded-lg bg-[#f2f5ef] px-3 py-2 font-semibold text-[#173d2b]">
+                            <Clock3 size={17} />
+                            {horario.horario.slice(0, 5)}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+          )}
 
           <p className="information-note">
-            Os dias e horários oficiais serão cadastrados pela
-            administração paroquial.
+            Os horários apresentados são os cadastrados pela administração
+            paroquial. Consulte a página completa para mais informações.
           </p>
-        </section>
 
-        {/* NOTÍCIAS */}
+          <div className="mt-6 text-center">
+            <Link to="/missas" className="text-link">
+              Consultar todos os horários
+              <ArrowRight size={18} />
+            </Link>
+          </div>
+        </section>
 
         {/* NOTÍCIAS */}
         <section className="news-section" id="noticias">
@@ -278,7 +411,6 @@ function Home() {
             </div>
           )}
         </section>
-
 
         {/* DÍZIMO E DOAÇÕES */}
         <section className="donation-section" id="dizimo">

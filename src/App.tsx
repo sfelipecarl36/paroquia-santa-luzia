@@ -12,11 +12,13 @@ import Home from './pages/Home'
 import InstitutionalPage from './pages/InstitutionalPage'
 import Noticias from './pages/Noticias'
 import NoticiaDetalhe from './pages/NoticiaDetalhe'
+import Missas from './pages/Missas'
 
 import Login from './pages/Admin/Login'
 import Dashboard from './pages/Admin/Dashboard'
 import NoticiasAdmin from './pages/Admin/NoticiasAdmin'
 import NoticiaForm from './pages/Admin/NoticiaForm'
+import MissasAdmin from './pages/Admin/MissasAdmin'
 
 function ProtectedAdmin() {
   const { user, isAdmin, loading } = useAuth()
@@ -49,6 +51,7 @@ function AppRoutes() {
       <Route element={<ProtectedAdmin />}>
         <Route path="/admin" element={<Dashboard />} />
 
+
         <Route
           path="/admin/noticias"
           element={<NoticiasAdmin />}
@@ -63,10 +66,17 @@ function AppRoutes() {
           path="/admin/noticias/editar/:id"
           element={<NoticiaForm />}
         />
+
+        <Route
+          path="/admin/missas"
+          element={<MissasAdmin />}
+        />
+
       </Route>
 
+      <Route path="/missas" element={<Missas />} />
       <Route path="/:page" element={<InstitutionalPage />} />
-
+      
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )

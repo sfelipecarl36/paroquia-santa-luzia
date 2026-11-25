@@ -19,12 +19,13 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link to="/" className="brand">
+        <Link to="/" className="brand" onClick={() => setOpen(false)}>
           <img
             src="/images/brasao-paroquia.png"
             alt="Brasão paroquial"
             className="brand-logo"
           />
+
           <span className="brand-name">
             <strong>PARÓQUIA</strong>
             <span>Santa Luzia</span>
@@ -48,14 +49,16 @@ export default function Header() {
         <button
           className="mobile-menu-button"
           onClick={() => setOpen(!open)}
-          aria-label="Abrir menu"
+          aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
         >
-          {open ? <X /> : <Menu />}
+          {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {open && (
-        <nav className="mobile-nav">
+        <nav className="mobile-nav" id="mobile-navigation">
           {links.map((item) => (
             <Link
               key={item.path}
@@ -66,6 +69,15 @@ export default function Header() {
               <ChevronRight size={17} />
             </Link>
           ))}
+
+          <Link
+            to="/dizimo"
+            className="mobile-donation"
+            onClick={() => setOpen(false)}
+          >
+            <Heart size={16} />
+            Contribua
+          </Link>
         </nav>
       )}
     </header>
