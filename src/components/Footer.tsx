@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Camera, MapPin, Phone, Mail, MarginTop } from 'lucide-react'
+import { Camera, MapPin, Phone, Mail } from 'lucide-react'
 
 export default function Footer() {
   return (
