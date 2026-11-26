@@ -27,6 +27,8 @@ import {
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 
+import SEO from '../components/SEO'
+
 const pages: Record<
   string,
   {
@@ -426,7 +428,7 @@ function PageContent({ page }: { page: string }) {
     )
   }
 
-  
+
   if (page === 'pastorais') {
     return (
       <div className="bg-[#fffdf8]">
@@ -478,11 +480,10 @@ function PageContent({ page }: { page: string }) {
                   className="rounded-3xl border border-[#e9e2d2] bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
                 >
                   <div
-                    className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl ${
-                      index === 1
+                    className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl ${index === 1
                         ? 'bg-[#f5f0e4] text-[#9b7842]'
                         : 'bg-[#eaf0e9] text-[#315b40]'
-                    }`}
+                      }`}
                   >
                     {item.icon}
                   </div>
@@ -588,213 +589,213 @@ function PageContent({ page }: { page: string }) {
     )
   }
 
-  
-  
-if (page === 'contato') {
-  const endereco =
-    'R. Wh-8, 1-99 - Parque Verde, Belém - PA, 66633-630'
 
-  const mapa =
-    'https://www.google.com/maps/place/Par%C3%B3quia+Santa+Luzia+do+Bom+Futuro/@-1.3688296,-48.4396789,18.75z/data=!4m6!3m5!1s0x92a461d4cfdc3283:0x262032cb7b7118ec!8m2!3d-1.368678!4d-48.4394465!16s%2Fg%2F11bzzzcm1m'
 
-  const mapaEmbed =
-    'https://www.google.com/maps?q=-1.368678,-48.4394465&z=17&output=embed'
+  if (page === 'contato') {
+    const endereco =
+      'R. Wh-8, 1-99 - Parque Verde, Belém - PA, 66633-630'
 
-  const redesSociais = [
-    {
-      title: 'WhatsApp',
-      description: 'Fale diretamente com nossa equipe de atendimento.',
-      detail: '(91) 98379-4121',
-      href: 'https://wa.me/5591983794121',
-      icon: siWhatsapp,
-      color: 'bg-[#e8f7ed]',
-      iconColor: '#25D366',
-    },
-    {
-      title: 'Instagram',
-      description: 'Acompanhe nossas celebrações, atividades e comunicados.',
-      detail: '@paroquiasantaluziabomfuturo',
-      href: 'https://www.instagram.com/paroquiasantaluziabomfuturo/',
-      icon: siInstagram,
-      color: 'bg-[#fbeaf0]',
-      iconColor: '#E1306C',
-    },
-    {
-      title: 'Facebook',
-      description: 'Fique por dentro das novidades e publicações da nossa paróquia.',
-      detail: 'Acessar nossa página',
-      href: 'https://www.facebook.com/profile.php?id=61554055960689',
-      icon: siFacebook,
-      color: 'bg-[#eaf1ff]',
-      iconColor: '#1877F2',
-    },
-  ]
+    const mapa =
+      'https://www.google.com/maps/place/Par%C3%B3quia+Santa+Luzia+do+Bom+Futuro/@-1.3688296,-48.4396789,18.75z/data=!4m6!3m5!1s0x92a461d4cfdc3283:0x262032cb7b7118ec!8m2!3d-1.368678!4d-48.4394465!16s%2Fg%2F11bzzzcm1m'
 
-  return (
-    <div className="bg-[#fffdf8]">
-      <section className="px-6 py-16 md:py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="mx-auto mb-14 max-w-3xl text-center">
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#eaf0e9] text-[#315b40]">
-              <MessageCircle size={32} />
-            </div>
+    const mapaEmbed =
+      'https://www.google.com/maps?q=-1.368678,-48.4394465&z=17&output=embed'
 
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#9b7842]">
-              Estamos à sua disposição
-            </span>
+    const redesSociais = [
+      {
+        title: 'WhatsApp',
+        description: 'Fale diretamente com nossa equipe de atendimento.',
+        detail: '(91) 98379-4121',
+        href: 'https://wa.me/5591983794121',
+        icon: siWhatsapp,
+        color: 'bg-[#e8f7ed]',
+        iconColor: '#25D366',
+      },
+      {
+        title: 'Instagram',
+        description: 'Acompanhe nossas celebrações, atividades e comunicados.',
+        detail: '@paroquiasantaluziabomfuturo',
+        href: 'https://www.instagram.com/paroquiasantaluziabomfuturo/',
+        icon: siInstagram,
+        color: 'bg-[#fbeaf0]',
+        iconColor: '#E1306C',
+      },
+      {
+        title: 'Facebook',
+        description: 'Fique por dentro das novidades e publicações da nossa paróquia.',
+        detail: 'Acessar nossa página',
+        href: 'https://www.facebook.com/profile.php?id=61554055960689',
+        icon: siFacebook,
+        color: 'bg-[#eaf1ff]',
+        iconColor: '#1877F2',
+      },
+    ]
 
-            <h2 className="mt-4 text-3xl font-semibold text-[#173d2b] md:text-5xl">
-              Será uma alegria falar com você.
-            </h2>
+    return (
+      <div className="bg-[#fffdf8]">
+        <section className="px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="mx-auto mb-14 max-w-3xl text-center">
+              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#eaf0e9] text-[#315b40]">
+                <MessageCircle size={32} />
+              </div>
 
-            <p className="mt-5 leading-relaxed text-gray-600">
-              Entre em contato, acompanhe nossas redes sociais
-              ou venha nos visitar. Nossa comunidade está de
-              portas abertas para acolher você.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-3">
-            {redesSociais.map((item) => (
-              <a
-                key={item.title}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group rounded-3xl border border-[#e9e2d2] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
-              >
-                <div
-                  className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl ${item.color}`}
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="29"
-                    height="29"
-                    fill={item.iconColor}
-                    role="img"
-                    aria-label={item.title}
-                  >
-                    <path d={item.icon.path} />
-                  </svg>
-                </div>
-
-                <h3 className="text-xl font-semibold text-[#173d2b]">
-                  {item.title}
-                </h3>
-
-                <p className="mt-2 text-sm leading-relaxed text-gray-500">
-                  {item.description}
-                </p>
-
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#315b40]">
-                  {item.detail}
-                  <ExternalLink size={15} />
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-[#e9e2d2] bg-white px-6 py-16 md:py-20">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-            <div>
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#9b7842]">
-                Como chegar
+                Estamos à sua disposição
               </span>
 
-              <h2 className="mt-4 text-3xl font-semibold leading-tight text-[#173d2b] md:text-4xl">
-                Venha nos visitar!
+              <h2 className="mt-4 text-3xl font-semibold text-[#173d2b] md:text-5xl">
+                Será uma alegria falar com você.
               </h2>
 
               <p className="mt-5 leading-relaxed text-gray-600">
-                Será uma alegria receber você em nossa
-                comunidade para compartilhar momentos de fé,
-                oração e fraternidade.
+                Entre em contato, acompanhe nossas redes sociais
+                ou venha nos visitar. Nossa comunidade está de
+                portas abertas para acolher você.
               </p>
+            </div>
 
-              <div className="mt-8 flex gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#eaf0e9] text-[#315b40]">
-                  <MapPin size={24} />
-                </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {redesSociais.map((item) => (
+                <a
+                  key={item.title}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-3xl border border-[#e9e2d2] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div
+                    className={`mb-6 flex h-14 w-14 items-center justify-center rounded-2xl ${item.color}`}
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="29"
+                      height="29"
+                      fill={item.iconColor}
+                      role="img"
+                      aria-label={item.title}
+                    >
+                      <path d={item.icon.path} />
+                    </svg>
+                  </div>
 
-                <div>
-                  <h3 className="font-semibold text-[#173d2b]">
-                    Endereço
+                  <h3 className="text-xl font-semibold text-[#173d2b]">
+                    {item.title}
                   </h3>
 
-                  <p className="mt-2 text-sm leading-relaxed text-gray-600">
-                    {endereco}
+                  <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                    {item.description}
                   </p>
-                </div>
-              </div>
 
-              <a
-                href={mapa}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#315b40] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#173d2b]"
-              >
-                Como chegar
-                <ArrowUpRight size={18} />
-              </a>
-            </div>
-
-            <div className="overflow-hidden rounded-3xl border border-[#e9e2d2] bg-[#f2f0e8] shadow-sm">
-              <iframe
-                src={mapaEmbed}
-                title="Localização da Paróquia Santa Luzia do Bom Futuro no Google Maps"
-                width="100%"
-                height="430"
-                style={{ border: 0 }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              />
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#315b40]">
+                    {item.detail}
+                    <ExternalLink size={15} />
+                  </span>
+                </a>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="border-t border-[#dce7dc] bg-[#edf3ed] px-6 py-16 text-center">
-        <div className="mx-auto max-w-3xl">
-          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#9b7842]">
-            Paróquia Santa Luzia do Bom Futuro
-          </span>
+        <section className="border-y border-[#e9e2d2] bg-white px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#9b7842]">
+                  Como chegar
+                </span>
 
-          <h2 className="mt-4 text-3xl font-semibold text-[#173d2b] md:text-4xl">
-            Esperamos por você!
-          </h2>
+                <h2 className="mt-4 text-3xl font-semibold leading-tight text-[#173d2b] md:text-4xl">
+                  Venha nos visitar!
+                </h2>
 
-          <p className="mt-5 leading-relaxed text-gray-600">
-            Que a paz de Cristo esteja em seu lar.
-            Conte conosco e faça parte da nossa comunidade.
-          </p>
+                <p className="mt-5 leading-relaxed text-gray-600">
+                  Será uma alegria receber você em nossa
+                  comunidade para compartilhar momentos de fé,
+                  oração e fraternidade.
+                </p>
 
-          <a
-            href="https://wa.me/5591983794121"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#315b40] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#173d2b]"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="18"
-              height="18"
-              fill="currentColor"
-              aria-hidden="true"
+                <div className="mt-8 flex gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#eaf0e9] text-[#315b40]">
+                    <MapPin size={24} />
+                  </div>
+
+                  <div>
+                    <h3 className="font-semibold text-[#173d2b]">
+                      Endereço
+                    </h3>
+
+                    <p className="mt-2 text-sm leading-relaxed text-gray-600">
+                      {endereco}
+                    </p>
+                  </div>
+                </div>
+
+                <a
+                  href={mapa}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#315b40] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#173d2b]"
+                >
+                  Como chegar
+                  <ArrowUpRight size={18} />
+                </a>
+              </div>
+
+              <div className="overflow-hidden rounded-3xl border border-[#e9e2d2] bg-[#f2f0e8] shadow-sm">
+                <iframe
+                  src={mapaEmbed}
+                  title="Localização da Paróquia Santa Luzia do Bom Futuro no Google Maps"
+                  width="100%"
+                  height="430"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-t border-[#dce7dc] bg-[#edf3ed] px-6 py-16 text-center">
+          <div className="mx-auto max-w-3xl">
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#9b7842]">
+              Paróquia Santa Luzia do Bom Futuro
+            </span>
+
+            <h2 className="mt-4 text-3xl font-semibold text-[#173d2b] md:text-4xl">
+              Esperamos por você!
+            </h2>
+
+            <p className="mt-5 leading-relaxed text-gray-600">
+              Que a paz de Cristo esteja em seu lar.
+              Conte conosco e faça parte da nossa comunidade.
+            </p>
+
+            <a
+              href="https://wa.me/5591983794121"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#315b40] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#173d2b]"
             >
-              <path d={siWhatsapp.path} />
-            </svg>
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d={siWhatsapp.path} />
+              </svg>
 
-            Fale conosco
-          </a>
-        </div>
-      </section>
-    </div>
-  )
-}
+              Fale conosco
+            </a>
+          </div>
+        </section>
+      </div>
+    )
+  }
 
 
 
@@ -826,6 +827,10 @@ export default function InstitutionalPage() {
     return (
       <>
         <Header />
+        <SEO
+          title={data.title}
+          description={data.description}
+        />
 
         <section className="internal-hero">
           <div className="internal-hero-content">

@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { HelmetProvider } from 'react-helmet-async'
 
 import Home from './pages/Home'
 import InstitutionalPage from './pages/InstitutionalPage'
@@ -102,11 +103,13 @@ function AppRoutes() {
 
 export default function App() {
   return (
+    <HelmetProvider>
     <AuthProvider>
       <BrowserRouter>
         <AppRoutes />
         <WhatsAppButton />
       </BrowserRouter>
     </AuthProvider>
+    </HelmetProvider>
   )
 }

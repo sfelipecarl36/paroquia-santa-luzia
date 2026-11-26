@@ -1,4 +1,4 @@
-
+import SEO from '../components/SEO'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, CalendarDays, Church } from 'lucide-react'
@@ -41,6 +41,17 @@ export default function NoticiaDetalhe() {
 
   return (
     <>
+      {noticia && !loading && (
+        <SEO
+          title={noticia.titulo}
+          description={
+            noticia.resumo ||
+            `Confira esta notícia da Paróquia Santa Luzia do Bom Futuro, em Belém do Pará.`
+          }
+          image={noticia.imagem_capa || undefined}
+          type="article"
+        />
+      )}
       <Header />
 
       <main className="min-h-screen bg-[#fffdf8]">
