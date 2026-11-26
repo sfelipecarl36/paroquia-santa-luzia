@@ -2674,3 +2674,87 @@ body {
   }
 }
 
+
+/* CORREÇÃO GLOBAL DE CONTRASTE DOS BOTÕES */
+
+/* Botões verdes: texto e ícones sempre brancos */
+.button-dark,
+.button-dark:visited,
+.button-dark:hover,
+.button-dark:focus,
+.button-dark:active {
+  color: #ffffff !important;
+}
+
+.button-dark svg {
+  color: #ffffff !important;
+  stroke: #ffffff;
+}
+
+/* Botões com borda clara sobre fundos escuros */
+.button-outline,
+.button-outline:visited {
+  color: #ffffff !important;
+}
+
+.button-outline svg {
+  color: #ffffff !important;
+  stroke: #ffffff;
+}
+
+/* Botões vinho */
+.header-donation,
+.header-donation:visited,
+.mobile-nav .mobile-donation,
+.admin-create-button,
+.login-submit {
+  color: #ffffff !important;
+}
+
+.header-donation svg,
+.mobile-nav .mobile-donation svg,
+.admin-create-button svg,
+.login-submit svg {
+  color: #ffffff !important;
+}
+
+/* Botões dourados: texto escuro para manter o contraste */
+.button-primary,
+.button-primary:visited {
+  color: #30240e !important;
+}
+
+.button-primary svg {
+  color: #30240e !important;
+  stroke: #30240e;
+}
+
+/* Botões claros sobre fundo vinho */
+.button-light,
+.button-light:visited {
+  color: #510819 !important;
+}
+
+.button-light svg {
+  color: #510819 !important;
+  stroke: #510819;
+}
+
+/* Botões administrativos */
+.news-publish-button,
+.news-publish-button:visited {
+  color: #ffffff !important;
+}
+
+.news-save-draft,
+.news-save-draft:visited {
+  color: #536454 !important;
+}
+
+/* Preserva o texto dos botões desabilitados */
+.button-dark:disabled,
+.button-primary:disabled,
+.button-light:disabled,
+.news-publish-button:disabled {
+  opacity: 0.6;
+}

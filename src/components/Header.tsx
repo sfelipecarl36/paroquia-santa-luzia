@@ -7,7 +7,7 @@ const links = [
   { label: 'A Paróquia', path: '/paroquia' },
   { label: 'Notícias', path: '/noticias' },
   { label: 'Missas', path: '/missas' },
-  { label: 'Dízimo e Doações', path: '/dizimo' },
+  { label: 'Dízimo e Doações', path: '/doacoes' },
   { label: 'Pastorais', path: '/pastorais' },
   { label: 'Galeria', path: '/galeria' },
   { label: 'Contato', path: '/contato' },
@@ -41,7 +41,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <Link to="/dizimo" className="header-donation">
+        <Link to="/doacoes" className="header-donation">
           <Heart size={16} />
           Contribua
         </Link>

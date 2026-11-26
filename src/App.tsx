@@ -13,12 +13,18 @@ import InstitutionalPage from './pages/InstitutionalPage'
 import Noticias from './pages/Noticias'
 import NoticiaDetalhe from './pages/NoticiaDetalhe'
 import Missas from './pages/Missas'
+import Doacoes from './pages/Doacoes'
+import Galeria from './pages/Galeria'
+
+import WhatsAppButton from './components/WhatsAppButton'
 
 import Login from './pages/Admin/Login'
 import Dashboard from './pages/Admin/Dashboard'
 import NoticiasAdmin from './pages/Admin/NoticiasAdmin'
 import NoticiaForm from './pages/Admin/NoticiaForm'
 import MissasAdmin from './pages/Admin/MissasAdmin'
+import DoacoesAdmin from './pages/Admin/DoacoesAdmin'
+import GaleriaAdmin from './pages/Admin/GaleriaAdmin'
 
 function ProtectedAdmin() {
   const { user, isAdmin, loading } = useAuth()
@@ -72,11 +78,23 @@ function AppRoutes() {
           element={<MissasAdmin />}
         />
 
+        <Route
+          path="/admin/doacoes"
+          element={<DoacoesAdmin />} 
+        />
+
+        <Route 
+          path="/admin/galeria" 
+          element={<GaleriaAdmin />} 
+        />
+
       </Route>
 
       <Route path="/missas" element={<Missas />} />
+      <Route path="/doacoes" element={<Doacoes />} />
+      <Route path="/galeria" element={<Galeria />} />
       <Route path="/:page" element={<InstitutionalPage />} />
-      
+
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
@@ -87,6 +105,7 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <AppRoutes />
+        <WhatsAppButton />
       </BrowserRouter>
     </AuthProvider>
   )

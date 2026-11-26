@@ -8,6 +8,11 @@ import {
 } from '../services/missasService'
 
 import {
+  buscarConfiguracaoDoacoes,
+  type ConfiguracaoDoacoes,
+} from '../services/doacoesService'
+
+import {
   ArrowRight,
   ArrowUpRight,
   CalendarDays,
@@ -37,6 +42,23 @@ function Home() {
   const [horarios, setHorarios] = useState<HorarioMissa[]>([])
   const [loadingMass, setLoadingMass] = useState(true)
   const [errorMass, setErrorMass] = useState(false)
+
+  const [configDoacoes, setConfigDoacoes] =
+    useState<ConfiguracaoDoacoes | null>(null)
+
+  useEffect(() => {
+    async function carregarDoacoes() {
+      try {
+        const dados = await buscarConfiguracaoDoacoes()
+        setConfigDoacoes(dados)
+      } catch (error) {
+        console.error('Erro ao carregar configurações de doações:', error)
+      }
+    }
+
+    void carregarDoacoes()
+  }, [])
+
 
   useEffect(() => {
     async function carregarNoticias() {
@@ -426,13 +448,20 @@ function Home() {
             </h2>
 
             <p>
-              O dízimo é uma expressão de gratidão, fé e compromisso
-              com a missão evangelizadora da Igreja. Cada contribuição
-              ajuda a manter nossa comunidade e suas atividades.
+              {configDoacoes?.texto_apresentacao ||
+                'O dízimo é uma expressão de gratidão, fé e compromisso com a missão evangelizadora da Igreja. Cada contribuição ajuda a manter nossa comunidade e suas atividades.'}
             </p>
 
-            <Link to="/dizimo" className="button-light">
-              Contribua pelo PIX
+            {configDoacoes?.texto_dizimo && (
+              <p>
+                {configDoacoes.texto_dizimo}
+              </p>
+            )}
+
+            <Link to="/doacoes" className="button-light">
+              {configDoacoes?.pix_ativo
+                ? 'Contribua pelo PIX'
+                : 'Conheça como contribuir'}
               <ArrowRight size={18} />
             </Link>
           </div>
@@ -442,6 +471,7 @@ function Home() {
             <span>PARTILHAR É UM ATO DE AMOR</span>
           </div>
         </section>
+
 
         {/* PASTORAIS */}
         <section className="pastoral-section" id="pastorais">
@@ -466,6 +496,7 @@ function Home() {
           </Link>
         </section>
 
+        
         {/* LOCALIZAÇÃO */}
         <section className="location-section" id="contato">
           <div className="location-content">
@@ -484,7 +515,7 @@ function Home() {
                 <strong>Nosso endereço</strong>
 
                 <p>
-                  R. Wh-8, 1-99 - 1-99, Parque Verde,
+                  R. Wh-8, 1-99 - Parque Verde,
                   Belém - PA, 66633-630
                 </p>
               </div>
@@ -503,7 +534,7 @@ function Home() {
             </div>
 
             <a
-              href="https://www.google.com/maps/search/?api=1&query=R.+Wh-8%2C+Parque+Verde%2C+Bel%C3%A9m+-+PA"
+              href="https://www.google.com/maps/dir/?api=1&destination=-1.368678%2C-48.4394465"
               target="_blank"
               rel="noreferrer"
               className="text-link"
@@ -513,23 +544,20 @@ function Home() {
             </a>
           </div>
 
-          <div className="map-placeholder">
-            <MapPin size={38} />
-
-            <span>PARÓQUIA SANTA LUZIA</span>
-
-            <small>PARQUE VERDE · BELÉM – PA</small>
-
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=R.+Wh-8%2C+Parque+Verde%2C+Bel%C3%A9m+-+PA"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Abrir no Google Maps
-              <ArrowUpRight size={16} />
-            </a>
+          <div className="map-placeholder overflow-hidden">
+            <iframe
+              src="https://www.google.com/maps?q=-1.368678,-48.4394465&z=17&output=embed"
+              title="Localização da Paróquia Santa Luzia do Bom Futuro"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: '350px' }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
           </div>
         </section>
+
       </main>
 
       <Footer />
