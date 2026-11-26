@@ -54,10 +54,10 @@ function gerarHTML(dados: {
   <meta name="twitter:description" content="${descricao}">
   <meta name="twitter:image" content="${imagem}">
 
-  <meta http-equiv="refresh" content="0;url=${url}">
+  
 </head>
 <body>
-  <p>Redirecionando para a notícia...</p>
+  <p>Prévia de compartilhamento da notícia.</p>
   <a href="${url}">Acessar notícia</a>
 </body>
 </html>`
