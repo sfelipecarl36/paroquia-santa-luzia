@@ -1,7 +1,16 @@
+
 import SEO from '../components/SEO'
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, CalendarDays, Church } from 'lucide-react'
+import {
+  ArrowLeft,
+  CalendarDays,
+  Church,
+  Share2,
+  Copy,
+  Check,
+  MessageCircle,
+} from 'lucide-react'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -16,6 +25,7 @@ export default function NoticiaDetalhe() {
   const [noticia, setNoticia] = useState<Noticia | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [copiado, setCopiado] = useState(false)
 
   useEffect(() => {
     async function carregarNoticia() {
@@ -39,6 +49,58 @@ export default function NoticiaDetalhe() {
     void carregarNoticia()
   }, [slug])
 
+  const linkNoticia =
+    typeof window !== 'undefined' ? window.location.href : ''
+
+  const compartilharWhatsApp = () => {
+    if (!noticia) return
+
+    const mensagem = `${noticia.titulo}\n\nConfira esta notícia da Paróquia Santa Luzia do Bom Futuro:\n${linkNoticia}`
+
+    window.open(
+      `https://wa.me/?text=${encodeURIComponent(mensagem)}`,
+      '_blank',
+      'noopener,noreferrer'
+    )
+  }
+
+  const compartilharNoticia = async () => {
+    if (!noticia) return
+
+    const dados = {
+      title: noticia.titulo,
+      text: noticia.resumo || 'Confira esta notícia da nossa Paróquia.',
+      url: linkNoticia,
+    }
+
+    try {
+      if (navigator.share) {
+        await navigator.share(dados)
+      } else {
+        await navigator.clipboard.writeText(linkNoticia)
+        setCopiado(true)
+      }
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') return
+
+      try {
+        await navigator.clipboard.writeText(linkNoticia)
+        setCopiado(true)
+      } catch {
+        console.error('Não foi possível compartilhar ou copiar o link.')
+      }
+    }
+  }
+
+  const copiarLink = async () => {
+    try {
+      await navigator.clipboard.writeText(linkNoticia)
+      setCopiado(true)
+    } catch (err) {
+      console.error('Erro ao copiar o link:', err)
+    }
+  }
+
   return (
     <>
       {noticia && !loading && (
@@ -46,12 +108,14 @@ export default function NoticiaDetalhe() {
           title={noticia.titulo}
           description={
             noticia.resumo ||
-            `Confira esta notícia da Paróquia Santa Luzia do Bom Futuro, em Belém do Pará.`
+            'Confira esta notícia da Paróquia Santa Luzia do Bom Futuro, em Belém do Pará.'
           }
           image={noticia.imagem_capa || undefined}
           type="article"
+          publishedTime={noticia.publicada_em}
         />
       )}
+
       <Header />
 
       <main className="min-h-screen bg-[#fffdf8]">
@@ -129,6 +193,45 @@ export default function NoticiaDetalhe() {
                   __html: noticia.conteudo,
                 }}
               />
+
+              <div className="mt-14 rounded-2xl border border-[#e9e4d8] bg-white p-6 md:p-8">
+                <h2 className="text-xl font-semibold text-[#24352b]">
+                  Compartilhe esta notícia
+                </h2>
+
+                <p className="mt-2 text-sm leading-6 text-gray-600">
+                  Ajude a divulgar as notícias e atividades da nossa Paróquia.
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    onClick={compartilharWhatsApp}
+                    className="inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 font-semibold text-white transition hover:bg-[#1ebe5d]"
+                  >
+                    <MessageCircle size={19} />
+                    WhatsApp
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={compartilharNoticia}
+                    className="inline-flex items-center gap-2 rounded-xl bg-[#173d2b] px-5 py-3 font-semibold text-white transition hover:bg-[#315b40]"
+                  >
+                    <Share2 size={19} />
+                    Compartilhar
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={copiarLink}
+                    className="inline-flex items-center gap-2 rounded-xl border border-[#d9d3c6] px-5 py-3 font-semibold text-[#315b40] transition hover:bg-[#f8f6f0]"
+                  >
+                    {copiado ? <Check size={19} /> : <Copy size={19} />}
+                    {copiado ? 'Link copiado!' : 'Copiar link'}
+                  </button>
+                </div>
+              </div>
 
               <div className="mt-16 border-t border-[#e9e4d8] pt-8">
                 <Link

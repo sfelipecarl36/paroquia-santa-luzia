@@ -1,5 +1,17 @@
+
 {
   "rewrites": [
+    {
+      "source": "/noticias/:slug",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|TelegramBot|Slackbot|Discordbot|Pinterestbot).*"
+        }
+      ],
+      "destination": "/api/social-noticia?slug=:slug"
+    },
     {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap"
