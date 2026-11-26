@@ -71,7 +71,7 @@ export default function Header() {
           ))}
 
           <Link
-            to="/dizimo"
+            to="/doacoes"
             className="mobile-donation"
             onClick={() => setOpen(false)}
           >
