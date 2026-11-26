@@ -123,6 +123,7 @@ function ParoquiaContent() {
             </p>
 
             <Link
+              style={{color:'white'}}
               to="/missas"
               className="mt-9 inline-flex items-center gap-3 rounded-full bg-[#173d2b] px-7 py-4 text-sm font-semibold text-white transition hover:bg-[#315b40]"
             >
@@ -527,6 +528,7 @@ function PageContent({ page }: { page: string }) {
               </p>
 
               <a
+                style={{color:'white'}}
                 href="https://wa.me/5591983794121?text=Ol%C3%A1!%20Paz%20e%20bem!%20Gostaria%20de%20conhecer%20as%20pastorais%20e%20formas%20de%20participar%20da%20Par%C3%B3quia%20Santa%20Luzia%20do%20Bom%20Futuro."
                 target="_blank"
                 rel="noopener noreferrer"
@@ -732,6 +734,7 @@ function PageContent({ page }: { page: string }) {
                 </div>
 
                 <a
+                  style={{color:'white'}}
                   href={mapa}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -774,6 +777,7 @@ function PageContent({ page }: { page: string }) {
             </p>
 
             <a
+              style={{color:'white'}}
               href="https://wa.me/5591983794121"
               target="_blank"
               rel="noopener noreferrer"

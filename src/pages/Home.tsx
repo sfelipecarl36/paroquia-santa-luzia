@@ -167,7 +167,7 @@ function Home() {
         <section className="welcome-section" id="paroquia">
           <div className="welcome-image">
             <img
-              src="https://images.unsplash.com/photo-1548625361-987a2e7b4a6b?w=1000"
+              src="/images/interiorigreja.jpg"
               alt="Interior de uma igreja"
             />
 
