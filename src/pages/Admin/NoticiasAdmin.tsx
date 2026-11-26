@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
@@ -18,6 +17,7 @@ import AdminSidebar from '../../components/AdminSidebar'
 interface Noticia {
   id: string
   titulo: string
+  slug: string
   categoria: string
   status: string
   created_at: string
@@ -38,7 +38,7 @@ export default function NoticiasAdmin() {
     try {
       const { data, error } = await supabase
         .from('noticias')
-        .select('id, titulo, categoria, status, created_at, imagem_capa')
+        .select('id, titulo, slug, categoria, status, created_at, imagem_capa')
         .order('created_at', { ascending: false })
 
       if (error) throw error
@@ -233,10 +233,11 @@ export default function NoticiasAdmin() {
                             <Trash2 size={17} />
                           </button>
 
-                          {noticia.status === 'publicada' && (
+                          {noticia.status === 'publicada' && noticia.slug && (
                             <Link
-                              to={`/noticias/${noticia.id}`}
+                              to={`/noticias/${noticia.slug}`}
                               target="_blank"
+                              rel="noopener noreferrer"
                               className="admin-action view"
                               aria-label="Visualizar notícia"
                             >

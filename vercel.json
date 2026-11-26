@@ -7,7 +7,7 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*(WhatsApp|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|TelegramBot|Slackbot|Discordbot|Pinterestbot).*"
+          "value": ".*WhatsApp.*"
         }
       ],
       "destination": "/api/social-noticia?slug=:slug"

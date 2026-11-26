@@ -1,3 +1,4 @@
+
 import { createClient } from '@supabase/supabase-js'
 
 const SITE_URL = 'https://www.paroquiasantaluziadobomfuturo.com'
@@ -13,6 +14,22 @@ function escaparHTML(valor: string) {
     .replace(/'/g, '&#39;')
 }
 
+function obterImagemAbsoluta(imagem: string | null) {
+  if (!imagem) return IMAGEM_PADRAO
+
+  try {
+    const url = new URL(imagem, SITE_URL)
+
+    if (url.protocol !== 'https:') {
+      return IMAGEM_PADRAO
+    }
+
+    return url.toString()
+  } catch {
+    return IMAGEM_PADRAO
+  }
+}
+
 function gerarHTML(dados: {
   titulo: string
   descricao: string
@@ -24,6 +41,7 @@ function gerarHTML(dados: {
   const descricao = escaparHTML(dados.descricao)
   const imagem = escaparHTML(dados.imagem)
   const url = escaparHTML(dados.url)
+
   const publicadaEm = dados.publicadaEm
     ? escaparHTML(dados.publicadaEm)
     : ''
@@ -35,30 +53,32 @@ function gerarHTML(dados: {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>${titulo} | ${NOME_SITE}</title>
+
   <meta name="description" content="${descricao}">
   <meta name="robots" content="index, follow">
+
   <link rel="canonical" href="${url}">
 
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="${NOME_SITE}">
   <meta property="og:locale" content="pt_BR">
+
   <meta property="og:title" content="${titulo} | ${NOME_SITE}">
   <meta property="og:description" content="${descricao}">
-  <meta property="og:image" content="${imagem}">
-  <meta property="og:image:alt" content="${titulo}">
+
   <meta property="og:url" content="${url}">
+  <meta property="og:image" content="${imagem}">
+  <meta property="og:image:secure_url" content="${imagem}">
+  <meta property="og:image:alt" content="${titulo}">
+
   ${publicadaEm ? `<meta property="article:published_time" content="${publicadaEm}">` : ''}
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${titulo} | ${NOME_SITE}">
-  <meta name="twitter:description" content="${descricao}">
-  <meta name="twitter:image" content="${imagem}">
-
-  
 </head>
 <body>
-  <p>Prévia de compartilhamento da notícia.</p>
-  <a href="${url}">Acessar notícia</a>
+  <h1>${titulo}</h1>
+  <p>${descricao}</p>
+  <img src="${imagem}" alt="${titulo}">
+  <p><a href="${url}">Acessar notícia</a></p>
 </body>
 </html>`
 }
@@ -110,11 +130,13 @@ export default async function handler(req: any, res: any) {
   }
 
   const titulo = noticia.titulo || NOME_SITE
+
   const descricao =
     noticia.resumo ||
     `Confira esta notícia da ${NOME_SITE}, em Belém do Pará.`
 
-  const imagem = noticia.imagem_capa || IMAGEM_PADRAO
+  const imagem = obterImagemAbsoluta(noticia.imagem_capa)
+
   const url = `${SITE_URL}/noticias/${encodeURIComponent(noticia.slug)}`
 
   const html = gerarHTML({
@@ -126,9 +148,10 @@ export default async function handler(req: any, res: any) {
   })
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
+  res.setHeader('Vary', 'User-Agent')
   res.setHeader(
     'Cache-Control',
-    'public, s-maxage=300, stale-while-revalidate=3600'
+    'public, s-maxage=60, stale-while-revalidate=300'
   )
 
   return res.status(200).send(html)
